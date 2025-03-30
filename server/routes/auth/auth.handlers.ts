@@ -20,7 +20,7 @@ export const register: AppRouteHandler<RegisterRoute> = async c => {
     name,
     password: hashedPassword,
     nickName: name,
-    role: isFirstUser ? 'admin' : 'user',
+    role: isFirstUser ? 'super_admin' : 'user',
     email,
     affCode: crypto.randomUUID()
   }).returning()
@@ -31,7 +31,7 @@ export const login: AppRouteHandler<LoginRoute> = async c => {
   const { email, password } = c.req.valid('json')
 
   const userInfo = await db.query.user.findFirst({
-    where (field, operators) {
+    where(field, operators) {
       return operators.eq(field.email, email)
     }
   })
@@ -63,7 +63,7 @@ export const userInfo: AppRouteHandler<UserInfoRoute> = async c => {
   }
 
   const userInfo = await db.query.user.findFirst({
-    where (field, operators) {
+    where(field, operators) {
       return operators.eq(field.accessToken, accessToken)
     }
   })

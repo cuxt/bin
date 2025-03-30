@@ -1,6 +1,6 @@
 {
   "name": "bin",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "scripts": {
     "dev": "pnpm drizzle-kit push && next dev --turbopack",

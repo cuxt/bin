@@ -1,17 +1,18 @@
 import createApp from '#/lib/create-app'
+import { configureOpenApi } from '#/lib/configure-open-api'
+import { responseWrapper } from '#/middlewares/response-wrapper'
+import { cors } from 'hono/cors'
 import index from '#/routes/index.route'
 import tasks from '#/routes/tasks/tasks.index'
 import auth from '#/routes/auth/auth.index'
 import im from '#/routes/im/im.index'
-import { configureOpenApi } from '#/lib/configure-open-api'
-import { responseWrapper } from '#/middlewares/response-wrapper'
-import { cors } from 'hono/cors'
+import cron from '#/routes/cron/cron.index'
 const app = createApp()
 
 app.use(cors())
 app.use(responseWrapper())
 
-const routes = [index, tasks, auth, im]
+const routes = [index, tasks, auth, im, cron]
 
 routes.forEach(route => {
   app.route('/', route)

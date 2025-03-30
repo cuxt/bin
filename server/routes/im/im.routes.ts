@@ -4,6 +4,7 @@ import { z } from 'zod'
 const tags = ['IM']
 
 // IM 消息路由
+export type SseRoute = typeof sse
 export const sse = createRoute({
   path: '/api/im/sse',
   method: 'get',
@@ -25,6 +26,7 @@ export const sse = createRoute({
 })
 
 // 发送消息路由
+export type SendMessageRoute = typeof sendMessage
 export const sendMessage = createRoute({
   path: '/api/im/send',
   method: 'post',
@@ -54,6 +56,3 @@ export const sendMessage = createRoute({
     }
   }
 })
-
-export type SseRoute = typeof sse
-export type SendMessageRoute = typeof sendMessage

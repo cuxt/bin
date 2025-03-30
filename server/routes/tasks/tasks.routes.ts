@@ -9,6 +9,7 @@ import { z } from 'zod'
 
 const tags = ['Tasks']
 
+export type ListRoute = typeof list
 export const list = createRoute({
   path: '/api/tasks',
   method: 'get',
@@ -25,6 +26,7 @@ export const list = createRoute({
   }
 })
 
+export type CreateRoute = typeof create
 export const create = createRoute({
   path: '/api/tasks',
   method: 'post',
@@ -51,6 +53,7 @@ export const create = createRoute({
   }
 })
 
+export type GetOneRoute = typeof getOne
 export const getOne = createRoute({
   path: '/api/tasks/{id}',
   method: 'get',
@@ -80,6 +83,7 @@ export const getOne = createRoute({
   }
 })
 
+export type PatchRoute = typeof patch
 export const patch = createRoute({
   path: '/api/tasks/{id}',
   method: 'patch',
@@ -117,6 +121,7 @@ export const patch = createRoute({
   }
 })
 
+export type RemoveRoute = typeof remove
 export const remove = createRoute({
   path: '/api/tasks/{id}',
   method: 'delete',
@@ -140,9 +145,3 @@ export const remove = createRoute({
     }
   }
 })
-
-export type ListRoute = typeof list
-export type CreateRoute = typeof create
-export type GetOneRoute = typeof getOne
-export type PatchRoute = typeof patch
-export type RemoveRoute = typeof remove

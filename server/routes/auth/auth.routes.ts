@@ -5,6 +5,7 @@ import { z } from 'zod'
 const tags = ['Auth']
 
 // 注册
+export type RegisterRoute = typeof register
 export const register = createRoute({
   path: '/api/auth/register',
   method: 'post',
@@ -39,6 +40,7 @@ export const register = createRoute({
 })
 
 // 登录
+export type LoginRoute = typeof login
 export const login = createRoute({
   path: '/api/auth/login',
   method: 'post',
@@ -91,6 +93,7 @@ export const login = createRoute({
 })
 
 // 用户信息
+export type UserInfoRoute = typeof userInfo
 export const userInfo = createRoute({
   path: '/api/auth/info',
   method: 'get',
@@ -144,7 +147,3 @@ export const userInfo = createRoute({
     }
   }
 })
-
-export type RegisterRoute = typeof register
-export type LoginRoute = typeof login
-export type UserInfoRoute = typeof userInfo

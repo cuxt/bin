@@ -7,12 +7,13 @@ import tasks from '#/routes/tasks/tasks.index'
 import auth from '#/routes/auth/auth.index'
 import im from '#/routes/im/im.index'
 import cron from '#/routes/cron/cron.index'
+import uglyAvatar from '#/routes/ugly_avator/ugly_avatar.index'
 const app = createApp()
 
 app.use(cors())
 app.use(responseWrapper())
 
-const routes = [index, tasks, auth, im, cron]
+const routes = [index, tasks, auth, im, cron, uglyAvatar]
 
 routes.forEach(route => {
   app.route('/', route)

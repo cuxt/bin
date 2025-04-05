@@ -17,7 +17,7 @@ export const register = createRoute({
           schema: z.object({
             name: z.string(),
             password: z.string(),
-            email: z.string().email(),
+            email: z.string().email()
           })
         }
       },
@@ -101,7 +101,7 @@ export const userInfo = createRoute({
   request: {
     headers: z.object({
       Authorization: z.string()
-    }),
+    })
   },
   responses: {
     200: {
@@ -121,7 +121,8 @@ export const userInfo = createRoute({
             affCode: z.string(),
             inviterId: z.string().uuid().nullable(),
             createdAt: z.string(),
-            updatedAt: z.string()
+            updatedAt: z.string(),
+            avatar: z.string().nullable()
           })
         }
       },

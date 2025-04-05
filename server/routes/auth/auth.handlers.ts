@@ -4,6 +4,7 @@ import { AppRouteHandler } from '#/lib/types'
 import { user } from '#/db/schema/user.sql'
 import { count } from 'drizzle-orm'
 import bcrypt from 'bcryptjs'
+import env from '#/env'
 
 export const register: AppRouteHandler<RegisterRoute> = async c => {
   const { name, password, email } = c.req.valid('json')
@@ -11,19 +12,25 @@ export const register: AppRouteHandler<RegisterRoute> = async c => {
   // 加密
   const hashedPassword = await bcrypt.hash(password, 10)
 
-  // 如果是第一个注册的用户，设置为管理员 
-  const userCount = await db.select({ count: count() }).from(user).then(result => result[0].count)
+  // 如果是第一个注册的用户，设置为管理员
+  const userCount = await db
+    .select({ count: count() })
+    .from(user)
+    .then(result => result[0].count)
   const isFirstUser = userCount === 0
 
-  const [inserted] = await db.insert(user).values({
-    id: crypto.randomUUID(),
-    name,
-    password: hashedPassword,
-    nickName: name,
-    role: isFirstUser ? 'super_admin' : 'user',
-    email,
-    affCode: crypto.randomUUID()
-  }).returning()
+  const [inserted] = await db
+    .insert(user)
+    .values({
+      id: crypto.randomUUID(),
+      name,
+      password: hashedPassword,
+      nickName: name,
+      role: isFirstUser ? 'super_admin' : 'user',
+      email,
+      affCode: crypto.randomUUID()
+    })
+    .returning()
   return c.json({ id: inserted.id, name: inserted.name })
 }
 
@@ -47,11 +54,14 @@ export const login: AppRouteHandler<LoginRoute> = async c => {
     return c.json({ message: 'Invalid Password' }, 401)
   }
 
-  return c.json({
-    id: userInfo.id,
-    name: userInfo.name,
-    accessToken: userInfo.accessToken!,
-  }, 200)
+  return c.json(
+    {
+      id: userInfo.id,
+      name: userInfo.name,
+      accessToken: userInfo.accessToken!
+    },
+    200
+  )
 }
 
 export const userInfo: AppRouteHandler<UserInfoRoute> = async c => {
@@ -74,20 +84,24 @@ export const userInfo: AppRouteHandler<UserInfoRoute> = async c => {
 
   console.log(userInfo.group)
 
-  return c.json({
-    id: userInfo.id,
-    name: userInfo.name,
-    nickName: userInfo.nickName,
-    role: userInfo.role,
-    userStatus: userInfo.userStatus,
-    email: userInfo.email,
-    githubId: userInfo.githubId,
-    wechatId: userInfo.wechatId,
-    larkId: userInfo.larkId,
-    group: userInfo.group,
-    affCode: userInfo.affCode,
-    inviterId: userInfo.inviterId,
-    createdAt: userInfo.createdAt!,
-    updatedAt: userInfo.updatedAt!,
-  }, 200)
+  return c.json(
+    {
+      id: userInfo.id,
+      name: userInfo.name,
+      nickName: userInfo.nickName,
+      role: userInfo.role,
+      userStatus: userInfo.userStatus,
+      email: userInfo.email,
+      githubId: userInfo.githubId,
+      wechatId: userInfo.wechatId,
+      larkId: userInfo.larkId,
+      group: userInfo.group,
+      affCode: userInfo.affCode,
+      inviterId: userInfo.inviterId,
+      createdAt: userInfo.createdAt!,
+      updatedAt: userInfo.updatedAt!,
+      avatar: `${env.API_URL}/api/ugly_avatar?id=${userInfo.id}`
+    },
+    200
+  )
 }

@@ -10,8 +10,9 @@ const envSchema = z
     PORT: z.coerce.number().default(3000),
     LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace']),
     DATABASE_URL: z.string(),
+    API_URL: z.string().url().default('https://api.xbxin.com')
   })
-  .refine(input => {
+  .refine(() => {
     return true
   })
 

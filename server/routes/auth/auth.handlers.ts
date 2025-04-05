@@ -100,7 +100,7 @@ export const userInfo: AppRouteHandler<UserInfoRoute> = async c => {
       inviterId: userInfo.inviterId,
       createdAt: userInfo.createdAt!,
       updatedAt: userInfo.updatedAt!,
-      avatar: `${env.API_URL}/api/ugly_avatar?id=${userInfo.id}`
+      avatar: `${env.API_URL}/api/ugly_avatar?id=${userInfo.id}&opacity=0`
     },
     200
   )

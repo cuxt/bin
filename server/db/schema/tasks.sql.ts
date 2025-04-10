@@ -1,13 +1,11 @@
-import { text, pgTable, boolean, timestamp, serial } from "drizzle-orm/pg-core";
+import { text, pgTable, boolean, timestamp, serial } from 'drizzle-orm/pg-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 
 export const tasks = pgTable('tasks', {
   id: serial().primaryKey(),
   name: text('name').notNull(),
   done: boolean('done').notNull().default(false),
-  createdAt: timestamp('created_at').$defaultFn(
-    () => new Date()
-  ),
+  createdAt: timestamp('created_at').$defaultFn(() => new Date()),
   updatedAt: timestamp('updated_at')
     .$defaultFn(() => new Date())
     .$onUpdate(() => new Date())

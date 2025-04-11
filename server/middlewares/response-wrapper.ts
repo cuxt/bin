@@ -1,6 +1,8 @@
 import { MiddlewareHandler } from 'hono'
 import { AppBindings } from '#/lib/types'
-import { version } from '../../package.json'
+import packageJson from '../../package.json'
+
+const { version } = packageJson
 
 export const responseWrapper = (): MiddlewareHandler<AppBindings> => {
   return async (c, next) => {
@@ -10,10 +12,14 @@ export const responseWrapper = (): MiddlewareHandler<AppBindings> => {
     const path = c.req.path
 
     // 跳过API文档相关路由
-    if (path === '/api/reference' || path === '/api/doc' || path.startsWith('/api/reference/')) {
+    if (
+      path === '/api/reference' ||
+      path === '/api/doc' ||
+      path.startsWith('/api/reference/')
+    ) {
       return
     }
-    
+
     // 获取响应状态和内容
     const response = c.res
 
@@ -27,25 +33,29 @@ export const responseWrapper = (): MiddlewareHandler<AppBindings> => {
     const originalBody = await response.json()
 
     // 避免重复包装
-    if (originalBody &&
+    if (
+      originalBody &&
       typeof originalBody === 'object' &&
       originalBody.hasOwnProperty('data') &&
-      originalBody.hasOwnProperty('timestamp')) {
+      originalBody.hasOwnProperty('timestamp')
+    ) {
       return
     }
 
     // 获取上海时区的日期并格式化为YYYY/MM/DD HH:MM:SS
-    const date = new Date();
-    const shanghaiDate = new Date(date.toLocaleString('en-US', { timeZone: 'Asia/Shanghai' }));
+    const date = new Date()
+    const shanghaiDate = new Date(
+      date.toLocaleString('en-US', { timeZone: 'Asia/Shanghai' })
+    )
 
-    const year = shanghaiDate.getFullYear();
-    const month = String(shanghaiDate.getMonth() + 1).padStart(2, '0');
-    const day = String(shanghaiDate.getDate()).padStart(2, '0');
-    const hours = String(shanghaiDate.getHours()).padStart(2, '0');
-    const minutes = String(shanghaiDate.getMinutes()).padStart(2, '0');
-    const seconds = String(shanghaiDate.getSeconds()).padStart(2, '0');
+    const year = shanghaiDate.getFullYear()
+    const month = String(shanghaiDate.getMonth() + 1).padStart(2, '0')
+    const day = String(shanghaiDate.getDate()).padStart(2, '0')
+    const hours = String(shanghaiDate.getHours()).padStart(2, '0')
+    const minutes = String(shanghaiDate.getMinutes()).padStart(2, '0')
+    const seconds = String(shanghaiDate.getSeconds()).padStart(2, '0')
 
-    const formattedTimestamp = `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+    const formattedTimestamp = `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`
 
     // 创建标准响应格式
     const wrappedResponse = {

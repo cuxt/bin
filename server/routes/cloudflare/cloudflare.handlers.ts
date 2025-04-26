@@ -13,7 +13,7 @@ export const graphql: AppRouteHandler<GraphqlRoute> = async c => {
     'Content-Type': 'application/json'
   }
 
-  // 当前时间 2025-04-19T10:59:00Z格式
+  // 当前时间
   const now = new Date()
   const variables = {
     accountTag: env.CLOUDFLARE_ACCOUNT_ID,
@@ -25,7 +25,7 @@ export const graphql: AppRouteHandler<GraphqlRoute> = async c => {
       datetime_lep: now.toISOString()
     },
     previousPeriodFilter: {
-      datetime_gep: new Date(
+      datetime_geq: new Date(
         now.getTime() - 14 * 24 * 60 * 60 * 1000
       ).toISOString(),
       datetime_lep: new Date(

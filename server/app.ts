@@ -8,12 +8,13 @@ import auth from '#/routes/auth/auth.index'
 import im from '#/routes/im/im.index'
 import cron from '#/routes/cron/cron.index'
 import uglyAvatar from '#/routes/ugly_avator/ugly_avatar.index'
+import cloudflare from '#/routes/cloudflare/cloudflare.index'
 const app = createApp()
 
 app.use(cors())
 app.use(responseWrapper())
 
-const routes = [index, tasks, auth, im, cron, uglyAvatar]
+const routes = [index, tasks, auth, im, cron, uglyAvatar, cloudflare]
 
 routes.forEach(route => {
   app.route('/', route)

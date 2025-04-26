@@ -10,7 +10,10 @@ const envSchema = z
     PORT: z.coerce.number().default(3000),
     LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace']),
     DATABASE_URL: z.string(),
-    API_URL: z.string().url().default('https://api.xbxin.com')
+    API_URL: z.string().url().default('https://api.xbxin.com'),
+    CLOUDFLARE_ZONE_ID: z.string().optional(),
+    CLOUDFLARE_ACCOUNT_ID: z.string().optional(),
+    CLOUDFLARE_ACCOUNT_ANALYTICS_TOKEN: z.string().optional()
   })
   .refine(() => {
     return true

@@ -19,16 +19,16 @@ export const graphql: AppRouteHandler<GraphqlRoute> = async c => {
     accountTag: env.CLOUDFLARE_ACCOUNT_ID,
     filter: {
       // 前7天
-      datetime_gep: new Date(
+      datetime_geq: new Date(
         now.getTime() - 7 * 24 * 60 * 60 * 1000
       ).toISOString(),
-      datetime_lep: now.toISOString()
+      datetime_leq: now.toISOString()
     },
     previousPeriodFilter: {
       datetime_geq: new Date(
         now.getTime() - 14 * 24 * 60 * 60 * 1000
       ).toISOString(),
-      datetime_lep: new Date(
+      datetime_leq: new Date(
         now.getTime() - 7 * 24 * 60 * 60 * 1000
       ).toISOString()
     },

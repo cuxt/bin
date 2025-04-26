@@ -147,16 +147,16 @@ export const getImageData = ({
   }
 
   // faceShape.generateFaceCountourPoints()生成脸部轮廓点
-  let faceResults = generateFaceCountourPoints(100, rng)
+  const faceResults = generateFaceCountourPoints(100, rng)
   data.computedFacePoints = faceResults.face
   // console.log('faceResults.face', faceResults.face);
   data.faceHeight = faceResults.height
   data.faceWidth = faceResults.width
   data.center = faceResults.center
 
-  let eyes = generateBothEyes(data.faceWidth / 2, rng)
-  let left = eyes.left
-  let right = eyes.right
+  const eyes = generateBothEyes(data.faceWidth / 2, rng)
+  const left = eyes.left
+  const right = eyes.right
   data.eyeRightUpper = right.upper
   data.eyeRightLower = right.lower
   data.eyeRightCountour = right.upper
@@ -213,17 +213,17 @@ export const getImageData = ({
   // now we generate the pupil shifts
   // we first pick a point from the upper eye lid
   //
-  let leftInd0 = Math.floor(randomFromInterval(10, left.upper.length - 10, rng))
-  let rightInd0 = Math.floor(
+  const leftInd0 = Math.floor(randomFromInterval(10, left.upper.length - 10, rng))
+  const rightInd0 = Math.floor(
     randomFromInterval(10, right.upper.length - 10, rng)
   )
-  let leftInd1 = Math.floor(randomFromInterval(10, left.upper.length - 10, rng))
-  let rightInd1 = Math.floor(
+  const leftInd1 = Math.floor(randomFromInterval(10, left.upper.length - 10, rng))
+  const rightInd1 = Math.floor(
     randomFromInterval(10, right.upper.length - 10, rng)
   )
 
-  let leftLerp = randomFromInterval(0.2, 0.8, rng)
-  let rightLerp = randomFromInterval(0.2, 0.8, rng)
+  const leftLerp = randomFromInterval(0.2, 0.8, rng)
+  const rightLerp = randomFromInterval(0.2, 0.8, rng)
 
   data.leftPupilShiftY =
     left.upper[leftInd0][1] * leftLerp +
@@ -238,9 +238,9 @@ export const getImageData = ({
     right.upper[rightInd0][0] * rightLerp +
     right.lower[rightInd1][0] * (1 - rightLerp)
 
-  var numHairLines = []
-  var numHairMethods = 4
-  for (var i = 0; i < numHairMethods; i++) {
+  const numHairLines = []
+  const numHairMethods = 4
+  for (let i = 0; i < numHairMethods; i++) {
     numHairLines.push(Math.floor(randomFromInterval(0, 50, rng)))
   }
   data.hairs = []
@@ -295,7 +295,7 @@ export const getImageData = ({
   }
 
   // 嘴巴：根据随机选择的嘴形（从三种形状中选择），调用相应的 mouthShape.generateMouthShape 方法生成嘴巴的形状点。
-  var choice = Math.floor(rng() * 3)
+  const choice = Math.floor(rng() * 3)
   if (choice == 0) {
     data.mouthPoints = generateMouthShape0(
       data.computedFacePoints,

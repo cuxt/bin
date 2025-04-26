@@ -14,12 +14,12 @@ export function cubicBezier(
   P3: number[],
   t: number
 ) {
-  var x =
+  const x =
     (1 - t) ** 3 * P0[0] +
     3 * (1 - t) ** 2 * t * P1[0] +
     3 * (1 - t) * t ** 2 * P2[0] +
     t ** 3 * P3[0]
-  var y =
+  const y =
     (1 - t) ** 3 * P0[1] +
     3 * (1 - t) ** 2 * t * P1[1] +
     3 * (1 - t) * t ** 2 * P2[1] +

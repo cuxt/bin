@@ -7,7 +7,7 @@ function getEggShapePoints(
   rng: () => number
 ) {
   // the function is x^2/a^2 * (1 + ky) + y^2/b^2 = 1
-  var result = []
+  const result = []
   //   var pointString = "";
   for (var i = 0; i < segment_points; i++) {
     // x positive, y positive
@@ -86,24 +86,24 @@ export function generateMouthShape0(
   // the first one is a a big smile U shape
   // var faceCountourCopy = faceCountour.slice(0, faceCountour.length - 2);
   // choose one point on face at bottom side
-  var mouthRightY = randomFromInterval(faceHeight / 7, faceHeight / 3.5, rng)
-  var mouthLeftY = randomFromInterval(faceHeight / 7, faceHeight / 3.5, rng)
-  var mouthRightX = randomFromInterval(faceWidth / 10, faceWidth / 2, rng)
-  var mouthLeftX =
+  const mouthRightY = randomFromInterval(faceHeight / 7, faceHeight / 3.5, rng)
+  const mouthLeftY = randomFromInterval(faceHeight / 7, faceHeight / 3.5, rng)
+  const mouthRightX = randomFromInterval(faceWidth / 10, faceWidth / 2, rng)
+  const mouthLeftX =
     -mouthRightX + randomFromInterval(-faceWidth / 20, faceWidth / 20, rng)
-  var mouthRight = [mouthRightX, mouthRightY]
-  var mouthLeft = [mouthLeftX, mouthLeftY]
+  const mouthRight = [mouthRightX, mouthRightY]
+  const mouthLeft = [mouthLeftX, mouthLeftY]
 
-  var controlPoint0 = [
+  const controlPoint0 = [
     randomFromInterval(0, mouthRightX, rng),
     randomFromInterval(mouthLeftY + 5, faceHeight / 1.5, rng)
   ]
-  var controlPoint1 = [
+  const controlPoint1 = [
     randomFromInterval(mouthLeftX, 0, rng),
     randomFromInterval(mouthLeftY + 5, faceHeight / 1.5, rng)
   ]
 
-  var mouthPoints = [] as any
+  const mouthPoints = [] as any
   for (var i = 0; i < 1; i += 0.01) {
     mouthPoints.push(
       cubicBezier(mouthLeft, controlPoint1, controlPoint0, mouthRight, i)
@@ -116,7 +116,7 @@ export function generateMouthShape0(
       )
     }
   } else {
-    var y_offset_portion = randomFromInterval(0, 0.8, rng)
+    const y_offset_portion = randomFromInterval(0, 0.8, rng)
     for (var i = 0; i < 100; i += 1) {
       mouthPoints.push([
         mouthPoints[99][0] * (1 - i / 100.0) + (mouthPoints[0][0] * i) / 100.0,
@@ -139,31 +139,31 @@ export function generateMouthShape1(
   // the first one is a a big smile U shape
   // var faceCountourCopy = faceCountour.slice(0, faceCountour.length - 2);
   // choose one point on face at bottom side
-  var mouthRightY = randomFromInterval(faceHeight / 7, faceHeight / 4, rng)
-  var mouthLeftY = randomFromInterval(faceHeight / 7, faceHeight / 4, rng)
-  var mouthRightX = randomFromInterval(faceWidth / 10, faceWidth / 2, rng)
-  var mouthLeftX =
+  const mouthRightY = randomFromInterval(faceHeight / 7, faceHeight / 4, rng)
+  const mouthLeftY = randomFromInterval(faceHeight / 7, faceHeight / 4, rng)
+  const mouthRightX = randomFromInterval(faceWidth / 10, faceWidth / 2, rng)
+  const mouthLeftX =
     -mouthRightX + randomFromInterval(-faceWidth / 20, faceWidth / 20, rng)
-  var mouthRight = [mouthRightX, mouthRightY]
-  var mouthLeft = [mouthLeftX, mouthLeftY]
+  const mouthRight = [mouthRightX, mouthRightY]
+  const mouthLeft = [mouthLeftX, mouthLeftY]
 
-  var controlPoint0 = [
+  const controlPoint0 = [
     randomFromInterval(0, mouthRightX, rng),
     randomFromInterval(mouthLeftY + 5, faceHeight / 1.5, rng)
   ]
-  var controlPoint1 = [
+  const controlPoint1 = [
     randomFromInterval(mouthLeftX, 0, rng),
     randomFromInterval(mouthLeftY + 5, faceHeight / 1.5, rng)
   ]
 
-  var mouthPoints = [] as any
+  const mouthPoints = [] as any
   for (var i = 0; i < 1; i += 0.01) {
     mouthPoints.push(
       cubicBezier(mouthLeft, controlPoint1, controlPoint0, mouthRight, i)
     )
   }
 
-  var center = [
+  const center = [
     (mouthRight[0] + mouthLeft[0]) / 2,
     mouthPoints[25][1] / 2 + mouthPoints[75][1] / 2
   ]
@@ -174,7 +174,7 @@ export function generateMouthShape1(
       )
     }
   } else {
-    var y_offset_portion = randomFromInterval(0, 0.8, rng)
+    const y_offset_portion = randomFromInterval(0, 0.8, rng)
     for (var i = 0; i < 100; i += 1) {
       mouthPoints.push([
         mouthPoints[99][0] * (1 - i / 100.0) + (mouthPoints[0][0] * i) / 100.0,
@@ -208,27 +208,27 @@ export function generateMouthShape2(
   rng: () => number
 ) {
   // generate a random center
-  var center = [
+  const center = [
     randomFromInterval(-faceWidth / 8, faceWidth / 8, rng),
     randomFromInterval(faceHeight / 4, faceHeight / 2.5, rng)
   ]
 
-  var mouthPoints = getEggShapePoints(
+  const mouthPoints = getEggShapePoints(
     randomFromInterval(faceWidth / 4, faceWidth / 10, rng),
     randomFromInterval(faceHeight / 10, faceHeight / 20, rng),
     0.001,
     50,
     rng
   )
-  var randomRotationDegree = randomFromInterval(
+  const randomRotationDegree = randomFromInterval(
     -Math.PI / 9.5,
     Math.PI / 9.5,
     rng
   )
-  for (var i = 0; i < mouthPoints.length; i++) {
+  for (let i = 0; i < mouthPoints.length; i++) {
     // rotate the point
-    var x = mouthPoints[i][0]
-    var y = mouthPoints[i][1]
+    const x = mouthPoints[i][0]
+    const y = mouthPoints[i][1]
     mouthPoints[i][0] =
       x * Math.cos(randomRotationDegree) - y * Math.sin(randomRotationDegree)
     mouthPoints[i][1] =

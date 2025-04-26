@@ -20,9 +20,9 @@ function calculateBezierPoint(t: number, controlPoints: Position[]) {
   const n = controlPoints.length - 1
 
   for (let i = 0; i <= n; i++) {
-    let binCoeff = binomialCoefficient(n, i)
-    let a = Math.pow(1 - t, n - i)
-    let b = Math.pow(t, i)
+    const binCoeff = binomialCoefficient(n, i)
+    const a = Math.pow(1 - t, n - i)
+    const b = Math.pow(t, i)
     x += binCoeff * a * b * controlPoints[i].x
     y += binCoeff * a * b * controlPoints[i].y
   }
@@ -31,10 +31,10 @@ function calculateBezierPoint(t: number, controlPoints: Position[]) {
 }
 
 function computeBezierCurve(controlPoints: Position[], numberOfPoints: number) {
-  let curve = []
+  const curve = []
   for (let i = 0; i <= numberOfPoints; i++) {
-    let t = i / numberOfPoints
-    let point = calculateBezierPoint(t, controlPoints)
+    const t = i / numberOfPoints
+    const point = calculateBezierPoint(t, controlPoints)
     curve.push(point)
   }
   return curve
@@ -45,13 +45,13 @@ export function generateHairLines0(
   numHairLines = 100,
   rng: () => number
 ) {
-  var faceCountourCopy = faceCountour.slice(0, faceCountour.length - 2)
-  var results = []
-  for (var i = 0; i < numHairLines; i++) {
-    var numHairPoints = 20 + Math.floor(randomFromInterval(-5, 5, rng))
+  const faceCountourCopy = faceCountour.slice(0, faceCountour.length - 2)
+  const results = []
+  for (let i = 0; i < numHairLines; i++) {
+    const numHairPoints = 20 + Math.floor(randomFromInterval(-5, 5, rng))
     // we generate some hair lines
-    var hair_line = []
-    var index_offset = Math.floor(randomFromInterval(30, 140, rng))
+    let hair_line = []
+    let index_offset = Math.floor(randomFromInterval(30, 140, rng))
     for (var j = 0; j < numHairPoints; j++) {
       hair_line.push({
         x: faceCountourCopy[
@@ -64,7 +64,7 @@ export function generateHairLines0(
         ][1]
       })
     }
-    var d0 = computeBezierCurve(hair_line, numHairPoints)
+    const d0 = computeBezierCurve(hair_line, numHairPoints)
     hair_line = []
     index_offset = Math.floor(randomFromInterval(30, 140, rng))
     for (var j = 0; j < numHairPoints; j++) {
@@ -79,8 +79,8 @@ export function generateHairLines0(
         ][1]
       })
     }
-    var d1 = computeBezierCurve(hair_line, numHairPoints)
-    var d = []
+    const d1 = computeBezierCurve(hair_line, numHairPoints)
+    const d = []
     for (var j = 0; j < numHairPoints; j++) {
       d.push([
         d0[j][0] * (j * (1 / numHairPoints)) ** 2 +
@@ -99,13 +99,13 @@ export function generateHairLines1(
   numHairLines = 100,
   rng: () => number
 ) {
-  var faceCountourCopy = faceCountour.slice(0, faceCountour.length - 2)
-  var results = []
-  for (var i = 0; i < numHairLines; i++) {
-    var numHairPoints = 20 + Math.floor(randomFromInterval(-5, 5, rng))
+  const faceCountourCopy = faceCountour.slice(0, faceCountour.length - 2)
+  const results = []
+  for (let i = 0; i < numHairLines; i++) {
+    const numHairPoints = 20 + Math.floor(randomFromInterval(-5, 5, rng))
     // we generate some hair lines
-    var hair_line = []
-    var index_start = Math.floor(randomFromInterval(20, 160, rng))
+    const hair_line = []
+    let index_start = Math.floor(randomFromInterval(20, 160, rng))
     hair_line.push({
       x: faceCountourCopy[
         (faceCountourCopy.length - index_start) % faceCountourCopy.length
@@ -115,7 +115,7 @@ export function generateHairLines1(
       ][1]
     })
 
-    for (var j = 1; j < numHairPoints + 1; j++) {
+    for (let j = 1; j < numHairPoints + 1; j++) {
       index_start = Math.floor(randomFromInterval(20, 160, rng))
       hair_line.push({
         x: faceCountourCopy[
@@ -126,7 +126,7 @@ export function generateHairLines1(
         ][1]
       })
     }
-    var d = computeBezierCurve(hair_line, numHairPoints)
+    const d = computeBezierCurve(hair_line, numHairPoints)
 
     results.push(d)
   }
@@ -138,23 +138,23 @@ export function generateHairLines2(
   numHairLines = 100,
   rng: () => number
 ) {
-  var faceCountourCopy = faceCountour.slice(0, faceCountour.length - 2)
-  var results: any[][] = []
-  var pickedIndices = []
+  const faceCountourCopy = faceCountour.slice(0, faceCountour.length - 2)
+  const results: any[][] = []
+  const pickedIndices = []
   for (var i = 0; i < numHairLines; i++) {
     pickedIndices.push(Math.floor(randomFromInterval(10, 180, rng)))
   }
   pickedIndices.sort()
   for (var i = 0; i < numHairLines; i++) {
-    var numHairPoints = 20 + Math.floor(randomFromInterval(-5, 5, rng))
+    const numHairPoints = 20 + Math.floor(randomFromInterval(-5, 5, rng))
     // we generate some hair lines
-    var hair_line = []
-    var index_offset = pickedIndices[i]
-    var lower = randomFromInterval(0.8, 1.4, rng)
-    var reverse = rng() > 0.5 ? 1 : -1
-    for (var j = 0; j < numHairPoints; j++) {
-      var powerscale = randomFromInterval(0.1, 3, rng)
-      var portion =
+    const hair_line = []
+    const index_offset = pickedIndices[i]
+    const lower = randomFromInterval(0.8, 1.4, rng)
+    const reverse = rng() > 0.5 ? 1 : -1
+    for (let j = 0; j < numHairPoints; j++) {
+      const powerscale = randomFromInterval(0.1, 3, rng)
+      const portion =
         (1 - (j / numHairPoints) ** powerscale) * (1 - lower) + lower
       hair_line.push({
         x:
@@ -169,15 +169,15 @@ export function generateHairLines2(
           ][1] * portion
       })
     }
-    var d = computeBezierCurve(hair_line, numHairPoints)
+    let d = computeBezierCurve(hair_line, numHairPoints)
     if (rng() > 0.7) d = d.reverse()
     if (results.length == 0) {
       results.push(d)
       continue
     }
-    var lastHairPoint =
+    const lastHairPoint =
       results[results.length - 1][results[results.length - 1].length - 1]
-    var lastPointsDistance = Math.sqrt(
+    const lastPointsDistance = Math.sqrt(
       (d[0][0] - lastHairPoint[0]) ** 2 + (d[0][1] - lastHairPoint[1]) ** 2
     )
     if (rng() > 0.5 && lastPointsDistance < 100) {
@@ -194,25 +194,25 @@ export function generateHairLines3(
   numHairLines = 100,
   rng: () => number
 ) {
-  var faceCountourCopy = faceCountour.slice(0, faceCountour.length - 2)
-  var results = []
-  var pickedIndices = []
+  const faceCountourCopy = faceCountour.slice(0, faceCountour.length - 2)
+  const results = []
+  const pickedIndices = []
   for (var i = 0; i < numHairLines; i++) {
     pickedIndices.push(Math.floor(randomFromInterval(10, 180, rng)))
   }
   pickedIndices.sort()
-  var splitPoint = Math.floor(randomFromInterval(0, 200, rng))
+  const splitPoint = Math.floor(randomFromInterval(0, 200, rng))
   for (var i = 0; i < numHairLines; i++) {
-    var numHairPoints = 30 + Math.floor(randomFromInterval(-8, 8, rng))
+    const numHairPoints = 30 + Math.floor(randomFromInterval(-8, 8, rng))
     // we generate some hair lines
-    var hair_line = []
-    var index_offset = pickedIndices[i]
-    var lower = randomFromInterval(1, 2.3, rng)
+    const hair_line = []
+    const index_offset = pickedIndices[i]
+    let lower = randomFromInterval(1, 2.3, rng)
     if (rng() > 0.9) lower = randomFromInterval(0, 1, rng)
-    var reverse = index_offset > splitPoint ? 1 : -1
-    for (var j = 0; j < numHairPoints; j++) {
-      var powerscale = randomFromInterval(0.1, 3, rng)
-      var portion =
+    const reverse = index_offset > splitPoint ? 1 : -1
+    for (let j = 0; j < numHairPoints; j++) {
+      const powerscale = randomFromInterval(0.1, 3, rng)
+      const portion =
         (1 - (j / numHairPoints) ** powerscale) * (1 - lower) + lower
       hair_line.push({
         x:
@@ -226,7 +226,7 @@ export function generateHairLines3(
         ][1]
       })
     }
-    var d = computeBezierCurve(hair_line, numHairPoints)
+    const d = computeBezierCurve(hair_line, numHairPoints)
     results.push(d)
   }
   return results

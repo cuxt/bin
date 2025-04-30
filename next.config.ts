@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: '*' // 允许所有域名访问，生产环境请替换为具体域名
+            value: '*'
           },
           {
             key: 'Access-Control-Allow-Methods',

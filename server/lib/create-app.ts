@@ -32,7 +32,6 @@ export default function createApp() {
   })
 
   app.onError((err, c) => {
-    console.error(`${err}`)
     c.var.logger.debug('Error Bin！')
     return c.json(
       {

@@ -11,6 +11,10 @@ const envSchema = z
     LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace']),
     DATABASE_URL: z.string(),
     API_URL: z.string().url().default('https://api.xbxin.com'),
+    BIN_TOKEN: z.string().optional(),
+    KV_STORE_URL: z.string().url().default('https://kv.xbxin.com/api/kv'),
+    GITHUB_TOKEN: z.string().optional(),
+    PUSH_URL: z.string().url(),
     CLOUDFLARE_ZONE_ID: z.string().optional(),
     CLOUDFLARE_ACCOUNT_ID: z.string().optional(),
     CLOUDFLARE_ACCOUNT_ANALYTICS_TOKEN: z.string().optional()

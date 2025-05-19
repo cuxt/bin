@@ -56,7 +56,7 @@ export const login: AppRouteHandler<LoginRoute> = async c => {
     {
       id: userInfo.id,
       name: userInfo.name,
-      accessToken: userInfo.accessToken!
+      token: userInfo.accessToken!
     },
     200
   )

@@ -65,7 +65,7 @@ export const login = createRoute({
           schema: z.object({
             id: z.string().uuid(),
             name: z.string(),
-            accessToken: z.string().uuid()
+            token: z.string().uuid()
           })
         }
       },

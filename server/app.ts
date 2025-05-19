@@ -12,7 +12,21 @@ import cloudflare from '#/routes/cloudflare/cloudflare.index'
 import rss from '#/routes/rss/rss.index'
 const app = createApp()
 
-app.use(cors())
+app.use(
+  cors({
+    origin: origin => {
+      if (origin && origin.endsWith('xbxin.com')) {
+        return origin
+      }
+      return '*'
+    },
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+    exposeHeaders: ['Content-Length', 'Content-Type'],
+    maxAge: 3600,
+    credentials: true
+  })
+)
 app.use(responseWrapper())
 
 const routes = [index, tasks, auth, im, cron, uglyAvatar, cloudflare, rss]

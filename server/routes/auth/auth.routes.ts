@@ -111,7 +111,7 @@ export const userInfo = createRoute({
             id: z.string().uuid(),
             name: z.string(),
             nickName: z.string(),
-            role: z.enum(['super_admin', 'admin', 'user']),
+            roles: z.array(z.enum(['super', 'admin', 'user'])),
             userStatus: z.boolean(),
             email: z.string().email(),
             githubId: z.string().nullable(),
@@ -122,7 +122,7 @@ export const userInfo = createRoute({
             inviterId: z.string().uuid().nullable(),
             createdAt: z.string(),
             updatedAt: z.string(),
-            avatar: z.string().nullable()
+            avatar: z.string()
           })
         }
       },

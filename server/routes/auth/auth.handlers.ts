@@ -2,22 +2,20 @@ import db from '#/db'
 import type { RegisterRoute, LoginRoute, UserInfoRoute } from './auth.routes'
 import { AppRouteHandler } from '#/lib/types'
 import { user } from '#/db/schema/user.sql'
-import { count } from 'drizzle-orm'
 import bcrypt from 'bcryptjs'
 import env from '#/env'
 
 export const register: AppRouteHandler<RegisterRoute> = async c => {
   const { name, password, email } = c.req.valid('json')
-
   // 加密
   const hashedPassword = await bcrypt.hash(password, 10)
 
-  // 如果是第一个注册的用户，设置为管理员
-  const userCount = await db
-    .select({ count: count() })
+  // 检查是否存在任何用户，如果不存在则是第一个注册的用户，设置为管理员
+  const existingUser = await db
+    .select({ id: user.id })
     .from(user)
-    .then(result => result[0].count)
-  const isFirstUser = userCount === 0
+    .limit(1)
+    .then(result => result[0])
 
   const [inserted] = await db
     .insert(user)
@@ -26,7 +24,7 @@ export const register: AppRouteHandler<RegisterRoute> = async c => {
       name,
       password: hashedPassword,
       nickName: name,
-      role: isFirstUser ? 'super_admin' : 'user',
+      roles: !existingUser ? ['super'] : ['user'],
       email,
       affCode: crypto.randomUUID()
     })
@@ -82,14 +80,12 @@ export const userInfo: AppRouteHandler<UserInfoRoute> = async c => {
     return c.json({ message: 'Not Found' }, 404)
   }
 
-  console.log(userInfo.group)
-
   return c.json(
     {
       id: userInfo.id,
       name: userInfo.name,
       nickName: userInfo.nickName,
-      role: userInfo.role,
+      roles: <['super', 'admin', 'user']>userInfo.roles,
       userStatus: userInfo.userStatus,
       email: userInfo.email,
       githubId: userInfo.githubId,
@@ -98,8 +94,8 @@ export const userInfo: AppRouteHandler<UserInfoRoute> = async c => {
       group: userInfo.group,
       affCode: userInfo.affCode,
       inviterId: userInfo.inviterId,
-      createdAt: userInfo.createdAt!,
-      updatedAt: userInfo.updatedAt!,
+      createdAt: userInfo.createdAt!.toString(),
+      updatedAt: userInfo.updatedAt!.toString(),
       avatar: `${env.API_URL}/api/ugly_avatar?id=${userInfo.id}&opacity=0`
     },
     200

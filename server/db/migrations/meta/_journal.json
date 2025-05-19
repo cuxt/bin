@@ -15,6 +15,27 @@
       "when": 1744295999188,
       "tag": "0001_workable_blob",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1747645998261,
+      "tag": "0002_fuzzy_makkari",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1747646028602,
+      "tag": "0003_sharp_union_jack",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1747646298364,
+      "tag": "0004_lush_psynapse",
+      "breakpoints": true
     }
   ]
 }
